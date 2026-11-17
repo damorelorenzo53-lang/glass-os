@@ -1,41 +1,69 @@
 # Glass OS
 
-**A liquid-glass home screen for Android TV — built from scratch.**
+**A liquid-glass home screen for Android TV — native, 60 fps, built from scratch.**
 
-Glass OS replaces the stock Android TV launcher with a translucent, iOS-style "liquid glass" interface that runs smoothly even on budget TVs. Plug in the USB stick and Glass OS takes over; it also opens every time the TV turns on. Choose "Exit Glass OS" and you're back to the normal home screen.
+🌐 **Website: [glass-os-dmr.web.app](https://glass-os-dmr.web.app)** · ⬇️ **[Download the latest APK](../../releases/latest)**
 
-![Home with the GTA VI wallpaper](screenshots/home-gta.jpg)
+Glass OS replaces the stock Android TV launcher with a translucent, iOS-style "liquid glass" interface. Since version 3 it is fully native (no WebView): every glass panel is pre-rendered once and each frame only moves images, so it stays at 60 fps even on a budget TV.
+
+![Glass OS home screen](screenshots/home-maldives.jpg)
+
+## What's new in 3.1
+
+- **Free widgets** — weather, calendar, rain in the next 12 hours, temperature hour by hour.
+- **Pro widgets you choose** — six slots, each one picked from 24 options: Formula 1, MotoGP, ATP and WTA tennis, Serie A, Premier League, LaLiga, Bundesliga, Ligue 1, Champions League, Europa League, MLS, NBA, NFL, NHL, MLB, PGA golf, UFC and more. Live scores update every minute; select a widget to open the full schedule.
+- **Weather where you are** — the city is detected automatically, the language follows your TV.
+
+| Depth effect | Control Center |
+|---|---|
+| ![The skyline stands in front of the clock](screenshots/home-newyork.jpg) | ![Control Center](screenshots/control-center.jpg) |
+
+| Pick your widgets (Pro) | Champions League |
+|---|---|
+| ![Widget settings](screenshots/widgets-settings.jpg) | ![Champions League](screenshots/champions-league.jpg) |
+
+| NBA | Next 12 hours |
+|---|---|
+| ![NBA](screenshots/nba.jpg) | ![Weather](screenshots/weather-12h.jpg) |
 
 ## Features
 
-- **Liquid glass everywhere** — real background refraction on every panel, a glass "drop" that slides between apps with spring physics, all pre-computed so cheap TV GPUs keep up.
-- **Animated boot** — a glass drop falls, ripples, and turns into the Glass OS logo.
-- **Profiles** — Netflix-style "Who's watching?", 50 3D avatars, an optional PIN for each profile.
-- **Wallpapers** — GTA VI (Jason & Lucia) or a real Maldives beach, plus your own photos from the USB stick. The light follows the time of day, and real rain or snow appears when it's raining outside.
-- **Live widgets** — weather, calendar, next F1 Grand Prix, live ATP tennis and Inter (Serie A) scores. Select any widget to open a full page.
-- **Music player** — cover art, a glow that matches the album colors, and synced lyrics.
-- **Search everywhere** — glass on-screen keyboard or voice, then pick YouTube, Spotify, Netflix, Disney+, Prime Video…
-- **Alerts over any app** — F1 sessions, tennis matches, Inter goals, rain on the way.
-- **Phone remote** — scan a QR code and your phone becomes a touchpad, keyboard, volume control and app launcher.
-- **Folders** — apps sorted automatically (Streaming, Music, Sports, Games, System), movable with a long press.
+- **Liquid glass everywhere** — real background refraction on every panel and a glass "drop" that slides between apps with spring physics.
+- **Glass clock with depth** — like the iPhone lock screen, the city skyline stands in front of the time.
+- **Control Center** — volume, Bluetooth, Wi-Fi, picture, performance mode and HDMI inputs in one panel.
+- **Profiles** — "Who's watching?", with an optional PIN.
+- **Music player** — cover art and synced lyrics for what's playing.
+- **Search** — YouTube or Spotify straight from the remote.
 - **Auto updates** — new versions download by themselves; one OK on the remote installs them.
 
-| Profiles | Maldives wallpaper |
-|---|---|
-| ![Profiles](screenshots/profiles.jpg) | ![Maldives](screenshots/home-maldives.jpg) |
+![Who's watching](screenshots/profiles.jpg)
+
+## Free and Pro
+
+| | Free | Pro |
+|---|---|---|
+| Liquid-glass home, clock, dock, Control Center | ✓ | ✓ |
+| Weather, rain, temperature, calendar widgets | ✓ | ✓ |
+| Sports widgets and custom layout | | ✓ |
+| More wallpapers, alerts, extra profiles | | ✓ |
+| Price | 0 € | 4.99 € one time — coming soon on Google Play |
+
+No ads, no subscription.
 
 ## Install
 
-1. Download `GlassOS.apk` from [Releases](../../releases).
-2. Install it on an Android TV / Google TV (Android 6+) with "Install unknown apps" enabled, or via `adb install`.
-3. Optional, via adb, so Glass OS can open by itself and read what's playing:
-   ```
-   adb shell appops set it.damore.glasstv SYSTEM_ALERT_WINDOW allow
-   adb shell cmd notification allow_listener it.damore.glasstv/it.damore.glasstv.MediaListener
-   ```
+1. Download `GlassOS.apk` from the [website](https://glass-os-dmr.web.app) or from [Releases](../../releases/latest).
+2. Install it on an Android TV / Google TV (Android 6+) with "Install unknown apps" enabled (for example with the free *Downloader* app), or via `adb install`.
+3. Open Glass OS and pick your profile.
+
+Optional, via adb, so Glass OS can show the music player and alerts over other apps:
+```
+adb shell appops set it.damore.glasstv SYSTEM_ALERT_WINDOW allow
+adb shell cmd notification allow_listener it.damore.glasstv/it.damore.glasstv.MediaListener
+```
 
 ## Tech
 
-HTML/CSS/JS interface inside a full-screen WebView, with a small Java layer for apps, media sessions, USB detection, overlays, the phone-remote server and updates. Every animation runs on the GPU (Web Animations API) — the design was tuned frame by frame on a real budget TCL TV.
+Native Java: one custom View drawn on a hardware-accelerated Canvas, glass panels pre-rendered into bitmaps, spring animations on the Choreographer. Tuned frame by frame on a real budget TCL TV (0% janky frames in the dock).
 
 Made by **Lorenzo Damore**.
